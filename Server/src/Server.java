@@ -66,6 +66,15 @@ public class Server {
         String str = String.valueOf(sum1 + sum2);
         byte[] send = str.getBytes();
         datagramPacket = new DatagramPacket(send, send.length, InetAddress.getByName("localhost"), 12346);
+
+        try(FileOutputStream fos = new FileOutputStream("/home/roman/answer.txt"))
+        {
+            fos.write(send, 0, send.length);
+        }
+        catch(IOException ex){
+            System.out.println(ex.getMessage());
+        }
+
         socket.send(datagramPacket);
     }
 }
